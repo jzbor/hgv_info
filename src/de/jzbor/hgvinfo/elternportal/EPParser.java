@@ -33,7 +33,10 @@ public class EPParser {
         String[][] days;
         try {
             days = new String[5][];
-            Arrays.fill(days, new String[15]);
+            // forloop CANNOT be replaced with Arrays.fill()
+            for (int i = 0; i < days.length; i++) {
+                days[i] = new String[15];
+            }
             Document document = Jsoup.parse(html);
             // Get table schedule
             Element table = document.getElementsByClass("table table-condensed table-bordered").first().child(0);
