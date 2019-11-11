@@ -126,15 +126,17 @@ public class EPParser {
     public static Notifications parseNotifications(String html) {
         Document document = Jsoup.parse(html);
         Element contentDiv = document.getElementById("asam_content");
-        Elements listDaily = contentDiv.child(2).children();
+        Elements listDaily = contentDiv.child(2).children(); // 2 may be 1...
         Elements listArchive = contentDiv.getElementsByClass("collapse");
         ArrayList<Notification> notifications = new ArrayList<>();
-        for (Element entry :
-                listDaily) {
-            Element textElement = entry.child(0).child(0).child(0);
-            String title = textElement.child(1).text();
-            String content = textElement.child(2).text();
-            notifications.add(new Notification(title, content));
+        if (!(listDaily.size() == 0) && listDaily.first().child(0).children().size() > 0) {
+            for (Element entry :
+                    listDaily) {
+                Element textElement = entry.child(0).child(0).child(0);
+                String title = textElement.child(1).text();
+                String content = textElement.child(2).text();
+                notifications.add(new Notification(title, content));
+            }
         }
         for (Element entry :
                 listArchive) {

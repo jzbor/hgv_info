@@ -19,6 +19,14 @@ public class Notifications implements Serializable {
         notificationList.add(notification);
     }
 
+    public Notification get(int i){
+        return notificationList.get(i);
+    }
+
+    public int length() {
+        return notificationList.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder(super.toString() + ":\n");
