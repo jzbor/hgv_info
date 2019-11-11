@@ -6,17 +6,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Calendar implements Serializable {
+public class Calendar extends TreeMap<String, String> implements Serializable {
 
     private static final String FORMAT = "dd.MM.yyyy";
-    private Map<String, String> dates;
 
     public Calendar(Map<String, String> dates) {
-        this.dates = dates;
+        for (String key :
+                dates.keySet()) {
+            put(key, dates.get(key));
+        }
     }
 
     public Calendar() {
-        dates = new TreeMap<>(new DateComparator());
+        super(new DateComparator());
     }
 
     private static Date stringToDate(String string) {
@@ -29,17 +31,12 @@ public class Calendar implements Serializable {
         }
     }
 
-    public Map<String, String> getDates() {
-        return dates;
-    }
-
     public Map<String, String> getDatesAfter(Date date) {
         Map<String, String> map = new TreeMap<>(new DateComparator());
-        for (String key :
-                dates.keySet()) {
+        for (String key : keySet()) {
             Date compareDate = stringToDate(key);
             if (compareDate != null && !compareDate.before(date)) {
-                map.put(key, dates.get(key));
+                map.put(key, get(key));
             }
         }
         return map;
@@ -49,9 +46,8 @@ public class Calendar implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString() + "\n");
-        for (String key :
-                dates.keySet()) {
-            sb.append("\t" + key + ": " + dates.get(key) + "\n");
+        for (String key : keySet()) {
+            sb.append("\t" + key + ": " + get(key) + "\n");
         }
         return sb.toString();
     }
