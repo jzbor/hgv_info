@@ -1,3 +1,5 @@
 .idea/
+# May contain credentials
+src/de/jzbor/hgvinfo/Test.java
 # Project exclude paths
 /out/
