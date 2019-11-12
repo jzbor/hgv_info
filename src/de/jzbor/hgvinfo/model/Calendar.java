@@ -11,6 +11,8 @@ public class Calendar extends TreeMap<String, String> implements Serializable {
     private static final String FORMAT = "dd.MM.yyyy";
 
     public Calendar(Map<String, String> dates) {
+        super(new DateComparator());
+
         for (String key :
                 dates.keySet()) {
             put(key, dates.get(key));
