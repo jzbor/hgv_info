@@ -81,6 +81,14 @@ public class Schedule implements Serializable {
         return -1;
     }
 
+    public Map<String, String> getClasses() {
+        return classes;
+    }
+
+    public String[] getClassTags() {
+        return classes.keySet().toArray(new String[0]);
+    }
+
     public int beginOfLesson(int i) {
         // Beginning of lessons
         // @TODO Adapt for different beginnings
